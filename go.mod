@@ -1,4 +1,4 @@
-module che
+module github.com/faryoo/cherry-tool
 
 go 1.19
 
