@@ -19,6 +19,9 @@ type CommData struct {
 }
 
 func main() {
+	if ok := Exists(os.Getenv("HOME") + "/.che"); !ok {
+		Command("git clone https://git.suedy.com/akita/tpl.git $HOME/.che")
+	}
 	dir := flag.String("dir", "", "")
 	name := flag.String("name", "", "")
 	flag.Parse()
@@ -117,7 +120,7 @@ func Command(cmd string) error {
 }
 
 func generateCode(typed *string, name *CommData) (result []byte, err error) {
-	tpl, err := template.ParseFiles("./api/" + *typed + ".tmpl")
+	tpl, err := template.ParseFiles(os.Getenv("HOME") + "/.che/api/" + *typed + ".tmpl")
 	if err != nil {
 		err = errors.Wrap(err, "template.ParseFiles failed")
 		return
